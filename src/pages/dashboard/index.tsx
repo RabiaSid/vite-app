@@ -41,9 +41,8 @@ export default function Dashboard() {
     <div
       className="row m-0 p-0"
       style={{
-        border: "1px solid red",
         height: "100vh",
-        background: "#000000",
+        // background: "#000000",
       }}
     >
       <div
@@ -66,7 +65,7 @@ export default function Dashboard() {
         </div>
       </div>
       <div className="col-10" style={{ background: "transparent" }}>
-        <div className="row d-flex align-items-between justify-content-center border border-success h-100 m-0 p-0">
+        <div className="row d-flex align-items-between justify-content-center  h-100 m-0 p-0">
           {/* <Routes>
           <Route path="" element={<DashboardPage />} />
           <Route path="order-list-page" element={<OrderListPage />} />

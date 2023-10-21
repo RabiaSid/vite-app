@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { ReactNode } from "react";
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: "#202124",
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -18,46 +18,31 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
 
 type tableProps = {
-  label: string;
-  datasourse: any[];
   cols: any[];
+  children?:ReactNode
 };
 
-export default function CustomizedTable(props: tableProps) {
-  const { label, datasourse, cols } = props;
+export default function CustomTableConatiner(props: tableProps) {
+  const { cols, children } = props;
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-          {cols.map((x, i) => (
+          {cols.map((x) => (
               <StyledTableCell align="left">{x.heading}</StyledTableCell>
 
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
-        {datasourse.map((row, i) => (
-            <StyledTableRow>
-              {cols.map((col, ind) => (
-                <StyledTableCell align="left">{row[col.key]}</StyledTableCell>
-              ))}
-            </StyledTableRow>
-          ))}
+        {children}
         </TableBody>
       </Table>
     </TableContainer>
   );
 }
+
 

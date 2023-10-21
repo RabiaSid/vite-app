@@ -1,15 +1,15 @@
 import { TextField } from "@mui/material";
-import { Children, ReactNode } from "react";
+import { ReactNode } from "react";
 
 type InputProps = {
   placeholder?: string;
-  label: string;
+  label?: string;
   type?: string;
   select?: any;
   SelectProps?: any;
   name?: any;
-  value: string;
-  onChange: (...args: any[]) => any;
+  value?: string;
+  onChange?: (...args: any[]) => any;
   required?: any;
   children?: ReactNode;
 };
