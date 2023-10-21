@@ -1,48 +1,40 @@
-// import React, { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { fbAuth } from "../../config/firebase/firebasemethods";
-// import { loading } from "../../assets";
+import React, { useEffect, useState } from "react";
+import { Route, Navigate, RouteProps, Routes } from "react-router-dom";
+import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 
+type ProtectedRouteProps = {
+  element: React.ReactNode;
+} & RouteProps;
 
+function ProtectedRoute({ element, ...rest }: ProtectedRouteProps) {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
-// export default function Protected(props: any) {
-//   const { Screen } = props;
-//   const [loader, setLoader] = useState(true);
-//   const navigate = useNavigate();
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
+      if (user) {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
+    });
 
-//   useEffect(() => {
-//     checkAuth();
-//   }, []);
+    return () => unsubscribe();
+  }, []);
 
-//   let checkAuth = () => {
-//     setLoader(true);
-//     fbAuth()
-//       .then((res) => {
-//         setTimeout(() => {
-//         setLoader(false);
-//         }, 1000);
-//       })
-//       .catch((err) => {
-//         setLoader(false);
-//         navigate("/sign-in");
-//       });
-//   };
-//   return loader ? (
-//     <div className="bg-[#1c273a] h-screen flex justify-center items-center">
-//       <div className="w-[300px] bg-[rgb(28, 39, 58)] p-10 rounded-lg">
-//         <img src={loading} />
-//       </div>
-//     </div>
-//   ) : (
-//     <Screen />
-//   );
-// }
+  if (isAuthenticated === null) {
+    // Loading state
+    return null;
+  }
 
-
-function index() {
   return (
-    <div>index</div>
-  )
+    <Routes >
+    <Route
+      {...rest}
+      element={isAuthenticated ? element : <Navigate to="/" />}
+    />
+    </Routes>
+  );
 }
 
-export default index
+export default ProtectedRoute;

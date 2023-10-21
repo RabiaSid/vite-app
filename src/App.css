@@ -3,7 +3,9 @@
   letter-spacing: normal;
   background-color: white;
   margin: 0 auto;
+  padding: 0;
   width: 100%;
+  /* height: auto; */
 }
 * {
   box-sizing: border-box;

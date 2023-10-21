@@ -2,27 +2,26 @@ import Button from "@mui/material/Button";
 
 type ButtonProps = {
   startIcon?: any;
-  className?: any;
   label?: string;
   onClick?: (...args: any[]) => any;
   children?: React.ReactNode;
 };
 
 export default function IconButton(props: ButtonProps) {
-  const { startIcon, className, label, onClick, children } = props;
+  const { startIcon, label, onClick, children } = props;
 
   return (
     <Button
-      className={className}
       startIcon={startIcon}
       onClick={onClick}
+      className="my-2 rounded-5 btn_primary"
+      sx={{ background: "#242424" }}
       variant="contained"
-      fullWidth={true}
+      color="primary"
+      fullWidth
     >
       <text className="d-none d-md-block">{label}</text>
-      {children !== undefined && (
-      <>{children}</>
-      )}
+      {children !== undefined && <>{children}</>}
     </Button>
   );
 }
